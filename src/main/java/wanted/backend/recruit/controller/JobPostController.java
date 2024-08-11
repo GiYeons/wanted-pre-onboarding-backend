@@ -16,4 +16,9 @@ public class JobPostController {
     public JobPostResponse createJobPost(@RequestBody JobPostRequest request) {
         return jobPostService.createJobPost(request);
     }
+
+    @PutMapping("/update/{id}")
+    public  JobPostResponse updateJobPost(@PathVariable Long id, @RequestBody JobPostRequest request) throws Exception {
+        return jobPostService.updateJobPost(id, request);
+    }
 }
