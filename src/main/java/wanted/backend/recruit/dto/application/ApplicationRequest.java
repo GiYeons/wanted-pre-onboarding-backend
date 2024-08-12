@@ -1,4 +1,4 @@
-package wanted.backend.recruit.dto;
+package wanted.backend.recruit.dto.application;
 
 import lombok.Getter;
 

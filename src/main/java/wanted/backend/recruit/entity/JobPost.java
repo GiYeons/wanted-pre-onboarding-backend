@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import wanted.backend.recruit.dto.JobPostRequest;
-
-import java.time.LocalDateTime;
+import wanted.backend.recruit.dto.jobPost.JobPostRequest;
 
 @Getter
 @Entity
@@ -48,6 +45,8 @@ public class JobPost {
         this.reward = request.getReward();
         this.content = request.getContent();
         this.skill = request.getSkill();
+        this.nation = request.getNation();
+        this.region = request.getRegion();
     }
 
     public void update(JobPostRequest request) {
@@ -55,5 +54,7 @@ public class JobPost {
         this.reward = request.getReward();
         this.content = request.getContent();
         this.skill = request.getSkill();
+        this.nation = request.getNation();
+        this.region = request.getRegion();
     }
 }

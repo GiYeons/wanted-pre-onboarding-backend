@@ -10,12 +10,14 @@ import java.util.List;
 
 @Repository
 public interface JobPostRepository extends JpaRepository<JobPost, Long> {
+    // 해당 회사의 현재 공고를 제외한 모든 채용공고를 가져오는 쿼리
     @Query("SELECT jp.id FROM JobPost jp WHERE jp.company.id = :companyId AND " +
             "jp.id <> :currentJobPostId ORDER BY jp.id DESC")
     List<Integer> findByCompanyExceptForCurrentJobPost(
             @Param("companyId") Long companyId,
             @Param("currentJobPostId") Long currentJobPostId);
 
+    // 키워드 검색 쿼리
     @Query("SELECT DISTINCT jp FROM JobPost jp " +
             "LEFT OUTER JOIN jp.company c " +
             "WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
