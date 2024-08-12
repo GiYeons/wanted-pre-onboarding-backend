@@ -1,4 +1,4 @@
-package wanted.backend.recruit.dto;
+package wanted.backend.recruit.dto.jobPost;
 
 import lombok.Getter;
 
@@ -9,4 +9,6 @@ public class JobPostRequest {
     private Long reward;
     private String content;
     private String skill;
+    private String nation;
+    private String region;
 }
