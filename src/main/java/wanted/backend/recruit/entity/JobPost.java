@@ -2,6 +2,7 @@ package wanted.backend.recruit.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wanted.backend.recruit.dto.jobPost.JobPostRequest;
@@ -39,14 +40,15 @@ public class JobPost {
     @Column(name="region")
     private String region;
 
-    public JobPost(JobPostRequest request, Company company) {
+    @Builder
+    public JobPost(Company company, String position, Long reward, String content, String skill, String nation, String region) {
         this.company = company;
-        this.position = request.getPosition();
-        this.reward = request.getReward();
-        this.content = request.getContent();
-        this.skill = request.getSkill();
-        this.nation = request.getNation();
-        this.region = request.getRegion();
+        this.position = position;
+        this.reward = reward;
+        this.content = content;
+        this.skill = skill;
+        this.nation = nation;
+        this.region = region;
     }
 
     public void update(JobPostRequest request) {

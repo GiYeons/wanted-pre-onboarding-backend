@@ -1,13 +1,9 @@
 package wanted.backend.recruit.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +22,7 @@ public class Application {
     @JoinColumn(name = "job_post_id", referencedColumnName = "id")
     private JobPost jobPost;
 
+    @Builder
     public Application(User user, JobPost jobPost) {
         this.user = user;
         this.jobPost = jobPost;

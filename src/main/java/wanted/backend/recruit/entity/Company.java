@@ -2,10 +2,8 @@ package wanted.backend.recruit.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "company")
 public class Company {
