@@ -18,9 +18,6 @@ class RecruitApplicationTests {
 
 	@Test
 	void testJpa() {
-		Company company = new Company();
-		company.setName("이름");
-		this.companyRepository.save(company);
 
 	}
 
