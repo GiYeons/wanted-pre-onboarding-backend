@@ -34,10 +34,10 @@ public class JobPostController {
         return jobPostService.deleteJobPost(id, request);
     }
 
-    // 채용공고 목록 GET
+    // 채용공고 목록 GET (검색 기능 포함)
     @GetMapping("/all")
-    public List<JobPostResponse> getJobPosts() {
-        return jobPostService.getJobPosts();
+    public List<JobPostResponse> getJobPosts(@RequestParam(required = false, defaultValue = "") String search) {
+        return jobPostService.getJobPosts(search);
     }
 
     // 채용 상세 페이지 GET

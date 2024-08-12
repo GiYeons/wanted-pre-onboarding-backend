@@ -51,13 +51,23 @@ public class JobPostService {
         return new SuccessResponse(true);
     }
 
-    // 채용공고 목록 GET
+    // 채용공고 목록 GET (검색 기능 포함)
     @Transactional
-    public List<JobPostResponse> getJobPosts() {
-        return jobPostRepository.findAll()
-                .stream()
-                .map(JobPostResponse::new)
-                .toList();
+    public List<JobPostResponse> getJobPosts(String search) {
+        // 검색어가 없는 경우 전부 반환
+        if (search == null || search.isBlank()) {
+            return jobPostRepository.findAll()
+                    .stream()
+                    .map(JobPostResponse::new)
+                    .toList();
+        }
+        // 검색어가 존재하는 경우 검색 결과 반환
+        else {
+            return jobPostRepository.searchJobPost(search)
+                    .stream()
+                    .map(JobPostResponse::new)
+                    .toList();
+        }
     }
 
     // 채용 상세페이지 GET
