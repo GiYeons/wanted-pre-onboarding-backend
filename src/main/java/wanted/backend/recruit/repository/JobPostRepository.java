@@ -15,5 +15,19 @@ public interface JobPostRepository extends JpaRepository<JobPost, Long> {
     List<Integer> findByCompanyExceptForCurrentJobPost(
             @Param("companyId") Long companyId,
             @Param("currentJobPostId") Long currentJobPostId);
+
+    @Query("SELECT DISTINCT jp FROM JobPost jp " +
+            "LEFT OUTER JOIN jp.company c " +
+            "WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(jp.position) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(jp.content) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(jp.skill) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(jp.nation) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(jp.region) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "ORDER BY jp.id DESC"
+    )
+    List<JobPost> searchJobPost(
+            @Param("keyword") String keyword
+    );
 }
 
