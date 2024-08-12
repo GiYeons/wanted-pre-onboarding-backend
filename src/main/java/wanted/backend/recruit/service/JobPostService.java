@@ -26,7 +26,16 @@ public class JobPostService {
         Company company = companyRepository.findById(request.getCompany_id())
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 회사가 없습니다. " + request.getCompany_id()));
 
-        JobPost jobPost = new JobPost(request, company);
+        JobPost jobPost = JobPost.builder()
+                .company(company)
+                .position(request.getPosition())
+                .reward(request.getReward())
+                .content(request.getContent())
+                .skill(request.getSkill())
+                .nation(request.getNation())
+                .region(request.getRegion())
+                .build();
+
         jobPostRepository.save(jobPost);
         return new JobPostResponse(jobPost);
     }
@@ -43,7 +52,7 @@ public class JobPostService {
 
     // 채용공고 삭제
     @Transactional
-    public SuccessResponse deleteJobPost(Long id) throws Exception{
+    public SuccessResponse deleteJobPost(Long id) {
         JobPost jobPost = jobPostRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("채용공고가 존재하지 않습니다."));
 

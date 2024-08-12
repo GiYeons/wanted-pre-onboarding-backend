@@ -36,7 +36,10 @@ public class ApplicationService {
                 });
 
         // 지원 내역이 없으면 새로운 Application 생성 및 저장
-        Application application = new Application(user, jobPost);
+        Application application = Application.builder()
+                .user(user)
+                .jobPost(jobPost)
+                .build();
         applicationRepository.save(application);
 
         // ApplicationResponse로 반환
