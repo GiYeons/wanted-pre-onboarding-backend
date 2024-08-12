@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import wanted.backend.recruit.dto.JobPostRequest;
 import wanted.backend.recruit.dto.JobPostResponse;
+import wanted.backend.recruit.dto.SuccessResponse;
 import wanted.backend.recruit.service.JobPostService;
 
 @RestController
@@ -17,8 +18,13 @@ public class JobPostController {
         return jobPostService.createJobPost(request);
     }
 
-    @PutMapping("/update/{id}")
-    public  JobPostResponse updateJobPost(@PathVariable Long id, @RequestBody JobPostRequest request) throws Exception {
+    @PutMapping("/{id}")
+    public JobPostResponse updateJobPost(@PathVariable Long id, @RequestBody JobPostRequest request) throws Exception {
         return jobPostService.updateJobPost(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public SuccessResponse deleteJobPost(@PathVariable Long id, @RequestBody JobPostRequest request) throws Exception {
+        return jobPostService.deleteJobPost(id, request);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wanted.backend.recruit.dto.JobPostRequest;
 import wanted.backend.recruit.dto.JobPostResponse;
+import wanted.backend.recruit.dto.SuccessResponse;
 import wanted.backend.recruit.entity.Company;
 import wanted.backend.recruit.entity.JobPost;
 import wanted.backend.recruit.repository.CompanyRepository;
@@ -33,5 +34,14 @@ public class JobPostService {
 
         jobPost.update(request);
         return new JobPostResponse(jobPost);
+    }
+
+    @Transactional
+    public SuccessResponse deleteJobPost(Long id, JobPostRequest request) throws Exception{
+        JobPost jobPost = jobPostRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        jobPostRepository.deleteById(id);
+        return new SuccessResponse(true);
     }
 }
