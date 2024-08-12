@@ -1,6 +1,7 @@
 package wanted.backend.recruit.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import wanted.backend.recruit.dto.jobPost.JobPostDetailResponse;
 import wanted.backend.recruit.dto.jobPost.JobPostRequest;
@@ -17,6 +18,7 @@ public class JobPostController {
     private final JobPostService jobPostService;
 
     // 채용공고 등록
+    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("/create")
     public JobPostResponse createJobPost(@RequestBody JobPostRequest request) {
         return jobPostService.createJobPost(request);
