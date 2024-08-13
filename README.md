@@ -12,6 +12,7 @@
 &nbsp;
 
 ## 🛠️ ERD Diagram
+![erd](https://github.com/user-attachments/assets/83a2f17c-294a-4b73-bcaa-7cb1e6785bee)
 
 ☑️ 하나의 Company는 여러 개의 JobPost를 등록할 수 있습니다.  
 ☑️ 하나의 JobPost는 여러 개의 Application을 받을 수 있습니다.  
