@@ -1,4 +1,4 @@
-package wanted.backend.recruit;
+package wanted.backend.recruit.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

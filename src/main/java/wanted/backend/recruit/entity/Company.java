@@ -20,6 +20,7 @@ public class Company {
     @Column(name="name")
     private String name;
 
+    // 테스트용 빌더
     @Builder
     public Company(String name) {
         this.name = name;
