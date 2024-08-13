@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface JobPostRepository extends JpaRepository<JobPost, Long> {
+    List<JobPost> findAllByOrderByIdDesc();
+
     // 해당 회사의 현재 공고를 제외한 모든 채용공고를 가져오는 쿼리
     @Query("SELECT jp.id FROM JobPost jp WHERE jp.company.id = :companyId AND " +
             "jp.id <> :currentJobPostId ORDER BY jp.id DESC")
