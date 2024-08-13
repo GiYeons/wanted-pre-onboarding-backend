@@ -1,4 +1,4 @@
-package wanted.backend.recruit;
+package wanted.backend.recruit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +10,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import wanted.backend.recruit.controller.JobPostController;
 import wanted.backend.recruit.dto.jobPost.JobPostRequest;
+import wanted.backend.recruit.dto.jobPost.JobPostResponse;
 import wanted.backend.recruit.service.JobPostService;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,13 +48,7 @@ public class JobPostControllerUnitTest {
     @DisplayName("채용공고 등록")
     public void createJobPostTest() throws Exception {
         // given
-        JobPostRequest request = JobPostRequest.builder()
-                .company_id(1L)
-                .position("백엔드 주니어 개발자")
-                .reward(400000L)
-                .content("백엔드 개발자 구인합니다.")
-                .skill("Spring boot")
-                .build();
+        JobPostRequest request = jobPostRequest();
 
         // when, then
         mockMvc.perform(
@@ -64,13 +64,7 @@ public class JobPostControllerUnitTest {
     public void updateJobPostTest() throws Exception {
         // given
         Long id = 1L;
-        JobPostRequest request = JobPostRequest.builder()
-                .company_id(1L)
-                .position("백엔드 주니어 개발자")
-                .reward(400000L)
-                .content("백엔드 개발자 구인합니다.")
-                .skill("Spring boot")
-                .build();
+        JobPostRequest request = jobPostRequest();
 
         // when, then
         mockMvc.perform(
@@ -125,4 +119,16 @@ public class JobPostControllerUnitTest {
                 .andExpect(status().isOk());
         verify(jobPostService).getJobPost(id);
     }
+
+    // JobPostRequest 생성
+    private JobPostRequest jobPostRequest() {
+        return JobPostRequest.builder()
+                .company_id(1L)
+                .position("백엔드 주니어 개발자")
+                .reward(400000L)
+                .content("백엔드 개발자 구인합니다.")
+                .skill("Spring boot")
+                .build();
+    }
 }
+
