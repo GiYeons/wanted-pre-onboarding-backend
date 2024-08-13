@@ -1,6 +1,7 @@
 package wanted.backend.recruit.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wanted.backend.recruit.dto.jobPost.JobPostDeleteRequest;
@@ -76,7 +77,7 @@ public class JobPostService {
     public List<JobPostResponse> getJobPosts(String search) {
         // 검색어가 없는 경우 전부 반환
         if (search == null || search.isBlank()) {
-            return jobPostRepository.findAll()
+            return jobPostRepository.findAllByOrderByIdDesc()
                     .stream()
                     .map(JobPostResponse::new)
                     .toList();

@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class JobPostDetailResponse {
     private Long id;
-    private Company company;
+    private Long company_id;
+    private String company_name;
     private String position;
     private Long reward;
     private String content;
@@ -23,7 +24,8 @@ public class JobPostDetailResponse {
 
     public JobPostDetailResponse(JobPost jobPost, List<Integer> otherJobPosts) {
         this.id = jobPost.getId();
-        this.company = jobPost.getCompany();
+        this.company_id = jobPost.getCompany().getId();
+        this.company_name = jobPost.getCompany().getName();
         this.position = jobPost.getPosition();
         this.reward = jobPost.getReward();
         this.content = jobPost.getContent();
