@@ -13,7 +13,10 @@ import wanted.backend.recruit.repository.CompanyRepository;
 import wanted.backend.recruit.repository.JobPostRepository;
 import wanted.backend.recruit.service.JobPostService;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 

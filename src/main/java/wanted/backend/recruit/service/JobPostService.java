@@ -3,6 +3,7 @@ package wanted.backend.recruit.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wanted.backend.recruit.dto.jobPost.JobPostDeleteRequest;
 import wanted.backend.recruit.dto.jobPost.JobPostDetailResponse;
 import wanted.backend.recruit.dto.jobPost.JobPostRequest;
 import wanted.backend.recruit.dto.jobPost.JobPostResponse;
@@ -12,6 +13,7 @@ import wanted.backend.recruit.entity.JobPost;
 import wanted.backend.recruit.repository.CompanyRepository;
 import wanted.backend.recruit.repository.JobPostRepository;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Service
@@ -42,9 +44,14 @@ public class JobPostService {
 
     // 채용공고 수정
     @Transactional
-    public JobPostResponse updateJobPost(Long id, JobPostRequest request) {
+    public JobPostResponse updateJobPost(Long id, JobPostRequest request) throws Exception {
         JobPost jobPost = jobPostRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("채용공고가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("채용공고가 존재하지 않습니다. "+ id));
+
+        // 수정 권한 여부 확인
+        if (!request.getCompany_id().equals(jobPost.getCompany().getId())) {
+            throw new AccessDeniedException("회사 정보가 일치하지 않아 권한이 없습니다.");
+        }
 
         jobPost.update(request);
         return new JobPostResponse(jobPost);
@@ -52,9 +59,13 @@ public class JobPostService {
 
     // 채용공고 삭제
     @Transactional
-    public SuccessResponse deleteJobPost(Long id) {
+    public SuccessResponse deleteJobPost(Long id, JobPostDeleteRequest request) throws Exception {
         JobPost jobPost = jobPostRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("채용공고가 존재하지 않습니다."));
+
+        if(!request.getCompany_id().equals(jobPost.getCompany().getId())) {
+            throw new AccessDeniedException("회사 정보가 일치하지 않아 권한이 없습니다.");
+        }
 
         jobPostRepository.deleteById(id);
         return new SuccessResponse(true);
